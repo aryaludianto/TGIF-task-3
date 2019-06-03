@@ -20966,6 +20966,9 @@ function dispSenat (member) {
   }
 
   let senTab = document.getElementById("senate-data");
+  let empRow = document.createElement("tr"),
+      empCol = document.createElement("td"),
+      empText = document.createTextNode("All data are filtered")
 
   member.forEach(data => {
     let row = document.createElement("tr"), 
@@ -20980,9 +20983,10 @@ function dispSenat (member) {
         col.appendChild(text);
         return row.appendChild(col)
       })
-    
+      
     return senTab.appendChild(row) 
   })
+  if(member.length === 0 ) senTab.appendChild(empRow.appendChild(empCol.appendChild(empText)))
 }
 
 
@@ -21051,7 +21055,6 @@ function fillParty (data) {
       dataDisp = tempData;
     }
     
-    if (dataDisp.length === 0 ) alert("No Data")
 
    return dispSenat(dataDisp)
 
@@ -21059,6 +21062,3 @@ function fillParty (data) {
 
 
 
-
-$(document).ready(fillState());
-$(document).ready(dispState);

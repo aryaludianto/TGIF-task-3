@@ -41,6 +41,18 @@
                 <li><a href="./senate-data.html">Senate</a></li>
               </ul>
             </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Attendance<span class="caret"></span></a>
+              <ul class="dropdown-menu" >
+                <li><a href="">House</a></li>
+                <li><a href="./Senate-Attendance-statistics.html">Senate</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Party Loyalty<span class="caret"></span></a>
+              <ul class="dropdown-menu" >
+                <li><a href="">House</a></li>
+                <li><a href="./Senate-Party-Loyalty.html">Senate</a></li>
+              </ul>
+            </li>
           </ul>
         </nav>
 
@@ -108,6 +120,12 @@
     </div>
     <script src="./data/main.js"></script>
     <script src="./data/pro-congress-113-house.js"></script>
+    <script>
+    
+      $(document).ready(fillState());
+      $(document).ready(dispState);
+    
+    </script>
   </div>
   </body>
 </html>
