@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/main.css">
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  </head>
+    
+  <body>
+  <div class="main-content">
+
+    
+    <nav>
+      <div>
+      
+        <div id="headLog" class="row">
+          <div class="my-auto col-md-9">
+            <a href="#">
+              <img class="img-circle" alt="Cinque Terre" width="100" height="100" src="./images/tgif_logo.jpg">
+            </a>
+          </div>
+          <div class="my-auto col-md-3 eml">
+            <a href = "mailto: info@tgif.net">
+              <img alt="email" width="20" height="20" src="./images/email-envelope-outline-shape-with-rounded-corners.svg"> 
+              <p>info@tgif.net</p>
+            </a>
+          </div>
+        </div>
+        
+        <nav id="navi" class="navbar navbar-inverse">
+          <ul id="navUl" class="nav navbar-nav">
+            <li><a href="./home-page.html">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Congress 113<span class="caret"></span></a>
+              <ul class="dropdown-menu" >
+                <li><a href="./house-data.html">House</a></li>
+                <li class="active"><a href="#">Senate</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+    </nav>        
+
+      
+      <div class="row">
+        <h2 id="titl">Senators</h2>
+        <p class="exp col-md-8">First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
+      </div>
+
+
+      <form class="row">
+          <div class="col-md-8 input-div">
+            <h5 class="col-md-3">Filter by Party: </h5>
+            <span class="col-md-2">
+              <label>
+                <input id="checkRep" type="checkbox" value="R" onchange="fillState()">
+                Republican
+              </label>
+            </span>
+            <span class="col-md-2">
+               <label>
+                <input id="checkDem" type="checkbox" value="D" onchange="fillState()">
+                Democrat
+               </label>
+            </span>
+            <span class="col-md-2">
+              <label>
+                <input id="checkInd" type="checkbox" value="I" onchange="fillState()">
+                Independent
+              </label>
+            </span>
+          </div>
+          <div class="col-md-4 input-filter">
+            <h5 class="col-md-3">Filter by State</h5>
+            <select class="col-md-7" id="state" name="state" onchange="fillState()">
+               <option value="all" selected>All</option>
+           </select>
+          </div>
+        </form>
+     
+     
+        <table class="table table-hover" id="tabl">
+            <thead>
+               <tr>
+                   <th>Name</th>
+                   <th>Party</th>
+                   <th>State</th>
+                   <th>Years in Office</th>
+                   <th>Percentage of Votes</th>
+                 </tr>
+            </thead>
+            <tbody id="senate-data">
+            </tbody>
+           </table>
+      
+    
+    <div id="footer" class="navbar navbar-inverse">
+      <h4> &#169; 2016 TGIF | All Rights Reserved</h4>
+    </div>
+    <script src="./data/main.js"></script>
+    <script src="./data/pro-congress-113-senate.js"></script>
+  </div>
+  </body>
+</html>
