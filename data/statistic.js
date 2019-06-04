@@ -39,7 +39,7 @@ function votesWithParty (part){
     }  else if (part === "independents"){
       result =  (party.independents.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_independents"]);
     } 
-    return result;
+    return Math.round(result*100)/100 ;
 }
 
 // function vote --> type = "most"/"least", vote = "party"/"member"
@@ -62,6 +62,42 @@ function vote (type, vote, data){
   }
     return result;
 }
+
+
+
+
+//------------------display the data---------------------
+
+function glanceTab (member) {
+  
+  while(document.getElementById("senateAtGlance").hasChildNodes())
+  {
+    document.getElementById("senateAtGlance").removeChild(document.getElementById("senateAtGlance").firstChild);
+  }
+      member["number_of_total"] = Math.round((member["number_of_democrats"] + member["number_of_republicans"] + member["number_of_independents"]) * 100 )/100,
+      member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/3)*100)/100;
+
+      let senTab = document.getElementById("senateAtGlance");
+      let textParty = ["Republicans","Democrats", "Independents", "Total"]
+    
+    textParty.forEach(text => {
+      let row = document.createElement("tr");
+
+      let textNice = [text, member[`number_of_${text.toLowerCase()}`], member[`${text.toLowerCase()}_vote_with_party`]]
+        textNice.forEach(textFill => {
+          let col = document.createElement("td");
+          let text = document.createTextNode(textFill)
+          col.appendChild(text)
+
+          return row.appendChild(col)
+
+        })
+
+        return senTab.appendChild(row)
+
+    })
+}
+
 
 
 

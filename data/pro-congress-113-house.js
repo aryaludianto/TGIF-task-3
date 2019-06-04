@@ -21055,7 +21055,6 @@ function fillParty (data) {
       dataDisp = tempData;
     }
     
-
    return dispSenat(dataDisp)
 
 }
