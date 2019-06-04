@@ -68,7 +68,7 @@
           </div>
           <div class="col-md-6">
           <h2>Senate at a glance</h2>
-            <table>
+            <table >
                 <thead>
                     <tr>
                         <th>Party</th>
@@ -76,7 +76,7 @@
                         <th>% Voted with Prty</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="senateAtGlance">
                     <tr>
                         <td>Republican</td>
                         <td>--</td>
@@ -109,7 +109,7 @@
                       <th>% Party Votes</th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody id="leastLoyal">
                   <tr>
                       <td>--</td>
                       <td>--</td>
@@ -153,7 +153,7 @@
                       <th>% Party Votes</th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody id="mostLoyal">
                   <tr>
                       <td>--</td>
                       <td>--</td>
@@ -205,22 +205,22 @@
         var statistics = {
           "number_of_democrats": 0,
           "number_of_republicans":0,
-          "number_of_independent":0,
+          "number_of_independents":0,
           "democrats_vote_with_party":0,
           "republicans_vote_with_party":0,
           "independents_vote_with_party":0,
-          "members_often_not_vote":0,
-          "members_often_vote":0,
+          "members_often_not_vote_with_party":0,
+          "members_often_vote_with_party":0,
           "members_missed_most_vote":0,
           "members_missed_least_vote":0
-        }
-
-     // $(document).ready(partFill(members));
+        };
       </script>
       <script src="./data/pro-congress-113-senate.js"></script>
       <script src="./data/statistic.js"></script>
-    
-
+      <script>
+        $(document).ready(statFill(members));
+        console.log(statistics);
+      </script>
   </div>
 </body>
 </html>

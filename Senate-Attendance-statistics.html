@@ -202,34 +202,25 @@
     
 
     <script>
-      // var statistics = [{
-      //   "number_of_democrats": 0,
-      //   "number_of_republicans":0,
-      //   "number_of_independent":0,
-      //   "democrats_and_republicans_compare":0,
-      //   "members_often_not_vote":0,
-      //   "members_often_vote":0,
-      //   "members_missed_most_vote":0,
-      //   "members_missed_least_vote":0
-      // }]
-    </script>
-    <script src="./data/pro-congress-113-senate.js"></script>
-    <script src="./data/statistic.js"></script>
-    <script>
         var statistics = {
-            "number_of_democrats": 0,
-            "number_of_republicans":0,
-            "number_of_independents":0,
-            "democrats_vote_with_party":0,
-            "republicans_vote_with_party":0,
-            "members_often_not_vote":0,
-            "members_often_vote":0,
-            "members_missed_most_vote":0,
-            "members_missed_least_vote":0
-          }
-
-    
-    </script>
+          "number_of_democrats": 0,
+          "number_of_republicans":0,
+          "number_of_independents":0,
+          "democrats_vote_with_party":0,
+          "republicans_vote_with_party":0,
+          "independents_vote_with_party":0,
+          "members_often_not_vote_with_party":0,
+          "members_often_vote_with_party":0,
+          "members_missed_most_vote":0,
+          "members_missed_least_vote":0
+        };
+      </script>
+      <script src="./data/pro-congress-113-senate.js"></script>
+      <script src="./data/statistic.js"></script>
+      <script>
+        $(document).ready(statFill(members));
+        console.log(statistics);
+      </script>
   </div>
  </div>
  
