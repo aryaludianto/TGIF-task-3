@@ -468,7 +468,7 @@ var data = {
                 "state_rank": "",
                 "lis_id": "S370"
                 ,"missed_votes_pct": 2.78,
-                "votes_with_party_pct": 98.81
+                "votes_with_party_pct": 98.81 
               },
                           {
                 "id": "B001236",
