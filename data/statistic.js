@@ -1,3 +1,17 @@
+var statistics = {
+  "number_of_democrats": 0,
+  "number_of_republicans":0,
+  "number_of_independents":0,
+  "number_of_total":0,
+  "total_vote_with_party":0,
+  "democrats_vote_with_party":0,
+  "republicans_vote_with_party":0,
+  "independents_vote_with_party":0,
+  "members_often_not_vote_with_party":0,
+  "members_often_vote_with_party":0,
+  "members_missed_most_vote":0,
+  "members_missed_least_vote":0
+};
 
 let party = { 
   democrats: [],
@@ -35,8 +49,8 @@ function votesWithParty (part){
         result = (party.democrats.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_democrats"]);
     } else if (part === "republicans"){
       result =  (party.republicans.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_republicans"]); 
-    }  else if (part === "independents"){
-      if (part.independents)result =  (party.independents.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_independents"]);
+    }  else if (part === "independents"){ 
+      if (party.independents[0]) result =  (party.independents.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_independents"]);
       else result = 0;
     } 
     return Math.round(result*100)/100 ;
@@ -65,18 +79,17 @@ function vote (type, vote, data){
 
 
 
-
 //------------------display the data---------------------
 
 function glanceTab (member) {
+  var tbody = document.getElementById("atGlance");
+  tbody.innerHTML = ""
   
-  while(document.getElementById("atGlance").hasChildNodes())
-  {
-    document.getElementById("atGlance").removeChild(document.getElementById("atGlance").firstChild);
-  }
-      member["number_of_total"] = Math.round((member["number_of_democrats"] + member["number_of_republicans"] + member["number_of_independents"]) * 100 )/100,
-      member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/3)*100)/100;
-
+      member["number_of_total"] = Math.round((member["number_of_democrats"] + member["number_of_republicans"] + member["number_of_independents"]) * 100 )/100;
+      
+      if(!member["independents_vote_with_party"]){member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/2)*100)/100;
+          }else member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/3)*100)/100;
+      
       let senTab = document.getElementById("atGlance");
       let textParty = ["Republicans","Democrats", "Independents", "Total"]
     
@@ -99,15 +112,13 @@ function glanceTab (member) {
 }
 
 
-function leastLoyalTab (member) {
+//---- tab = "leastLoyal" || "mostLoyal" , member = statistics
+function loyalTab (tab , member) {
+  var tbody = document.getElementById(tab);
+  tbody.innerHTML = "";
 
-  while(document.getElementById("leastLoyal").hasChildNodes())
-  {
-    document.getElementById("leastLoyal").removeChild(document.getElementById("leastLoyal").firstChild);
-  }
-
-  let senTab = document.getElementById("leastLoyal");
-  let persons = member.members_often_not_vote_with_party
+  let senTab = document.getElementById(tab);
+  let persons = tab === "leastLoyal" ? member.members_often_not_vote_with_party : member.members_often_vote_with_party;
 
   persons.forEach(person=> {
     let row = document.createElement("tr"),
@@ -128,46 +139,13 @@ function leastLoyalTab (member) {
 
 }
 
-function mostLoyalTab (member) {
-
-  while(document.getElementById("mostLoyal").hasChildNodes())
-  {
-    document.getElementById("mostLoyal").removeChild(document.getElementById("mostLoyal").firstChild);
-  }
-
-  let senTab = document.getElementById("mostLoyal");
-  let persons = member.members_often_vote_with_party
-
-  persons.forEach(person=> {
-    let row = document.createElement("tr"),
-        text = [fullName = nameVal(person), 
-          partyVotes = document.createTextNode(person.total_votes), 
-          partyVotesPercs = document.createTextNode(person.votes_with_party_pct)]
-
-        text.forEach(text=> {
-          let col =document.createElement("td");
-          col.appendChild(text);
-
-          return row.appendChild(col)
-
-        })
-
-        return senTab.appendChild(row);
-  })
-
-}
-
-
-
-function leastEngageTab (member) {
-
-  while(document.getElementById("leastEngagedTab").hasChildNodes())
-  {
-    document.getElementById("leastEngagedTab").removeChild(document.getElementById("leastEngagedTab").firstChild);
-  }
-
-  let senTab = document.getElementById("leastEngagedTab");
-  let persons = member.members_missed_most_vote
+//---- tab = "leastEngagedTab" || "mostEngageTab" , member = statistics
+function engagedTab (tab , member) {
+  var tbody = document.getElementById(tab);
+  tbody.innerHTML = ""
+  
+  let senTab = document.getElementById(tab);
+  let persons = tab === "leastEngagedTab" ? member.members_missed_most_vote : member.members_missed_least_vote;
 
   persons.forEach(person=> {
     let row = document.createElement("tr"),
@@ -190,46 +168,20 @@ function leastEngageTab (member) {
 
 
 
-function mostEngageTab (member) {
 
-  while(document.getElementById("mostEngageTab").hasChildNodes())
-  {
-    document.getElementById("mostEngageTab").removeChild(document.getElementById("mostEngageTab").firstChild);
-  }
 
-  let senTab = document.getElementById("mostEngageTab");
-  let persons = member.members_missed_least_vote
-
-  persons.forEach(person=> {
-    let row = document.createElement("tr"),
-        text = [fullName = nameVal(person), 
-          partyVotes = document.createTextNode(person.missed_votes), 
-          partyVotesPercs = document.createTextNode(person.missed_votes_pct)]
-
-        text.forEach(text=> {
-          let col =document.createElement("td");
-          col.appendChild(text);
-
-          return row.appendChild(col)
-
-        })
-
-        return senTab.appendChild(row);
-  })
-
-}
 
 //----display data all-------
 
 function dispDataLoyalty () {
   glanceTab(statistics);
-  leastLoyalTab(statistics);
-  mostLoyalTab(statistics);
+  loyalTab ("mostLoyal", statistics)
+  loyalTab ("leastLoyal", statistics)
 }
 
 
 function dispDataAttendance () {
   glanceTab(statistics);  
-  leastEngageTab(statistics);
-  mostEngageTab(statistics);
+  engagedTab("leastEngagedTab", statistics);
+  engagedTab("mostEngagedTab", statistics);
 }
