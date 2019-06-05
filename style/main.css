@@ -12,6 +12,9 @@
   margin: 4% 0 2% 0;
 }
 
+#ruler {
+  border-top: 1px solid grey;
+}
 #navi , #footer{
  background-color: lightgray;
 }
@@ -59,34 +62,11 @@
 }
 
 
-
-
-/* 
-
-td {
-  width: auto;
-  height: 10px;
-  border: 1px solid black;
-  padding: 0;
-  font-size: 20px;
-  text-align: center;
-  border-spacing: 0;
+#container {
+  padding-right: 0;
+  padding-left: 0;
 }
 
-th{
-  width: 200px;
-  height: 30px;
-  border: 1px solid black;
-  padding: 1px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0%;
- 
+#mailer{
+  display: flex;
 }
-
-
-table {
-  margin: auto;
-  margin-top: 2%;
-} */

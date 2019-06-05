@@ -34,7 +34,6 @@ function statFill (member) {
     statistics["members_missed_least_vote"] = vote ("least","member",member);
   }
 
-
 function partFill (data) {
       data.filter(data=> {
         if (data.party === "D") party.democrats.push(data)
@@ -44,15 +43,7 @@ function partFill (data) {
 }
 
 function votesWithParty (part){
-    let result;
-    if (part === "democrats"){
-        result = (party.democrats.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_democrats"]);
-    } else if (part === "republicans"){
-      result =  (party.republicans.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_republicans"]); 
-    }  else if (part === "independents"){ 
-      if (party.independents[0]) result =  (party.independents.map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics["number_of_independents"]);
-      else result = 0;
-    } 
+    let result = !party[part][0] ? 0 : (party[part].map(dem => dem["votes_with_party_pct"]).reduce((prev, next) => prev + next)/statistics[`number_of_${part}`])
     return Math.round(result*100)/100 ;
 }
 
@@ -87,8 +78,8 @@ function glanceTab (member) {
   
       member["number_of_total"] = Math.round((member["number_of_democrats"] + member["number_of_republicans"] + member["number_of_independents"]) * 100 )/100;
       
-      if(!member["independents_vote_with_party"]){member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/2)*100)/100;
-          }else member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/3)*100)/100;
+      if(!member["independents_vote_with_party"]) member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/2)*100)/100;
+      else member["total_vote_with_party"] = Math.round(((member["democrats_vote_with_party"] + member["republicans_vote_with_party"] + member["independents_vote_with_party"])/3)*100)/100;
       
       let senTab = document.getElementById("atGlance");
       let textParty = ["Republicans","Democrats", "Independents", "Total"]
@@ -128,15 +119,15 @@ function dispTab (tab , member) {
   persons.forEach(person=> {
     let row = document.createElement("tr"), partyVotes, partyVotesPercs;
   
-          if (tab === "leastLoyal" || tab === "mostLoyal"){
-            partyVotes = document.createTextNode(person.total_votes), 
-            partyVotesPercs = document.createTextNode(person.votes_with_party_pct)
-          } else if ( tab === "leastEngagedTab" || tab === "mostEngagedTab"){
-            partyVotes = document.createTextNode(person.missed_votes), 
-            partyVotesPercs = document.createTextNode(person.missed_votes_pct)
-          }
+      if (tab === "leastLoyal" || tab === "mostLoyal"){
+        partyVotes = document.createTextNode(person.total_votes), 
+        partyVotesPercs = document.createTextNode(person.votes_with_party_pct)
+      } else if ( tab === "leastEngagedTab" || tab === "mostEngagedTab"){
+        partyVotes = document.createTextNode(person.missed_votes), 
+        partyVotesPercs = document.createTextNode(person.missed_votes_pct)
+      }
 
-        let text = [fullName = nameVal(person), partyVotes, partyVotesPercs]
+    let text = [fullName = nameVal(person), partyVotes, partyVotesPercs]
 
         text.forEach(text=> {
           let col =document.createElement("td");
