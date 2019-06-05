@@ -86,7 +86,7 @@ function glanceTab (member) {
     
     textParty.forEach(text => {
       let row = document.createElement("tr");
-      let textNice = [text, member[`number_of_${text.toLowerCase()}`], member[`${text.toLowerCase()}_vote_with_party`]]
+      let textNice = [text, member[`number_of_${text.toLowerCase()}`], member[`${text.toLowerCase()}_vote_with_party`]+ " %"]
         
       textNice.forEach(textFill => {
           
@@ -107,7 +107,6 @@ function dispTab (tab , member) {
   var tbody = document.getElementById(tab);
   tbody.innerHTML = "";
 
-  let senTab = document.getElementById(tab);
   let persons;
  
   if (tab === "leastLoyal" || tab === "mostLoyal"){
@@ -121,10 +120,10 @@ function dispTab (tab , member) {
   
       if (tab === "leastLoyal" || tab === "mostLoyal"){
         partyVotes = document.createTextNode(person.total_votes), 
-        partyVotesPercs = document.createTextNode(person.votes_with_party_pct)
+        partyVotesPercs = document.createTextNode(person.votes_with_party_pct + " %")
       } else if ( tab === "leastEngagedTab" || tab === "mostEngagedTab"){
         partyVotes = document.createTextNode(person.missed_votes), 
-        partyVotesPercs = document.createTextNode(person.missed_votes_pct)
+        partyVotesPercs = document.createTextNode(person.missed_votes_pct + " %")
       }
 
     let text = [fullName = nameVal(person), partyVotes, partyVotesPercs]
@@ -137,7 +136,7 @@ function dispTab (tab , member) {
 
         })
 
-        return senTab.appendChild(row);
+        return tbody.appendChild(row);
   })
 
 }
