@@ -111,47 +111,32 @@ function glanceTab (member) {
     })
 }
 
-
-//---- tab = "leastLoyal" || "mostLoyal" , member = statistics
-function loyalTab (tab , member) {
+//---- tab = "leastLoyal" || "mostLoyal" ||  "leastEngagedTab" || "mostEngageTab", member = statistics
+function dispTab (tab , member) {
   var tbody = document.getElementById(tab);
   tbody.innerHTML = "";
 
   let senTab = document.getElementById(tab);
-  let persons = tab === "leastLoyal" ? member.members_often_not_vote_with_party : member.members_often_vote_with_party;
+  let persons;
+ 
+  if (tab === "leastLoyal" || tab === "mostLoyal"){
+    persons = tab === "leastLoyal" ? member.members_often_not_vote_with_party : member.members_often_vote_with_party;  
+  } else if ( tab === "leastEngagedTab" || tab === "mostEngagedTab"){
+     persons = tab === "leastEngagedTab" ? member.members_missed_most_vote : member.members_missed_least_vote;
+  }
 
   persons.forEach(person=> {
-    let row = document.createElement("tr"),
-        text = [fullName = nameVal(person), 
-          partyVotes = document.createTextNode(person.total_votes), 
-          partyVotesPercs = document.createTextNode(person.votes_with_party_pct)]
-
-        text.forEach(text=> {
-          let col =document.createElement("td");
-          col.appendChild(text);
-
-          return row.appendChild(col)
-
-        })
-
-        return senTab.appendChild(row);
-  })
-
-}
-
-//---- tab = "leastEngagedTab" || "mostEngageTab" , member = statistics
-function engagedTab (tab , member) {
-  var tbody = document.getElementById(tab);
-  tbody.innerHTML = ""
+    let row = document.createElement("tr"), partyVotes, partyVotesPercs;
   
-  let senTab = document.getElementById(tab);
-  let persons = tab === "leastEngagedTab" ? member.members_missed_most_vote : member.members_missed_least_vote;
+          if (tab === "leastLoyal" || tab === "mostLoyal"){
+            partyVotes = document.createTextNode(person.total_votes), 
+            partyVotesPercs = document.createTextNode(person.votes_with_party_pct)
+          } else if ( tab === "leastEngagedTab" || tab === "mostEngagedTab"){
+            partyVotes = document.createTextNode(person.missed_votes), 
+            partyVotesPercs = document.createTextNode(person.missed_votes_pct)
+          }
 
-  persons.forEach(person=> {
-    let row = document.createElement("tr"),
-        text = [fullName = nameVal(person), 
-          partyVotes = document.createTextNode(person.missed_votes), 
-          partyVotesPercs = document.createTextNode(person.missed_votes_pct)]
+        let text = [fullName = nameVal(person), partyVotes, partyVotesPercs]
 
         text.forEach(text=> {
           let col =document.createElement("td");
@@ -165,23 +150,17 @@ function engagedTab (tab , member) {
   })
 
 }
-
-
-
-
-
 
 //----display data all-------
 
 function dispDataLoyalty () {
   glanceTab(statistics);
-  loyalTab ("mostLoyal", statistics)
-  loyalTab ("leastLoyal", statistics)
+  dispTab ("mostLoyal", statistics)
+  dispTab ("leastLoyal", statistics)
 }
-
 
 function dispDataAttendance () {
   glanceTab(statistics);  
-  engagedTab("leastEngagedTab", statistics);
-  engagedTab("mostEngagedTab", statistics);
+  dispTab("leastEngagedTab", statistics);
+  dispTab("mostEngagedTab", statistics);
 }
