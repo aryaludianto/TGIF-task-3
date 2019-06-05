@@ -39,13 +39,13 @@
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Attendance<span class="caret"></span></a>
                     <ul class="dropdown-menu" >
-                      <li><a href="">House</a></li>
-                      <li><a href="./Senate-Attendance-statistics.html">Senate</a></li>
+                      <li><a href=".//house-attendance.html">House</a></li>
+                      <li><a href="./senate-attendance.html">Senate</a></li>
                     </ul>
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Party Loyalty<span class="caret"></span></a>
                     <ul class="dropdown-menu" >
-                      <li><a href="">House</a></li>
+                      <li><a href="./house-party-loyalty.html">House</a></li>
                       <li class="active" ><a href="">Senate</a></li>
                     </ul>
                   </li>
@@ -76,7 +76,7 @@
                         <th>% Voted with Prty</th>
                     </tr>
                 </thead>
-                <tbody id="senateAtGlance">
+                <tbody id="atGlance">
                     <tr>
                         <td>Republican</td>
                         <td>--</td>
@@ -110,7 +110,7 @@
               <thead>
                   <tr>
                       <th>Name</th>
-                      <th>Number Party Votes</th>
+                      <th>No. Party Votes</th>
                       <th>% Party Votes</th>
                   </tr>
               </thead>
@@ -154,7 +154,7 @@
               <thead>
                   <tr>
                       <th>Name</th>
-                      <th>Number Party Votes</th>
+                      <th>No. Party Votes</th>
                       <th>% Party Votes</th>
                   </tr>
               </thead>
@@ -226,7 +226,7 @@
       <script src="./data/statistic.js"></script>
       <script>
         $(document).ready(statFill(members));
-        console.log(statistics);
+        $(document).ready(dispDataLoyalty());
       </script>
   </div>
 </body>
